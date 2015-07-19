@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>2-controller-scope.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+<div ng-controller="ParentController">
+	<h3><strong>父控制器</strong></h3>
+	<label>姓名: </label> <input type="text" ng-model='person.name'>
+	<label>年龄: </label> {{person.age}}
+	<label>职业: </label> {{person.career}}
+	<label>出生地: </label> {{child.birth}}
+	<br><label>工作: </label> <input type="text" ng-model="job">
+
+	<div ng-controller="ChildController">
+		<h3><strong>子控制器</strong></h3>
+		<label>年龄: </label> <input type="text" ng-model='person.age'>
+		<label>姓名: </label> {{person.name}}
+		<label>职业: </label> <input type="text" ng-model='person.career'>
+		<label>出生地: </label> <input type="text" ng-model='child.birth'> 
+		<button ng-click="updateBirth()">更新出生地</button>
+		<br><label>工作: </label> <input type="text" ng-model="job">
+	</div>
+</div>	
+
+<br><br>
+<div class="bg-info">
+	<label>
+		* 子控制器有父控制器里变量的所有权限,可以读取,也可以修改. 	<p></p>
+		* 父控制器不能读,也不能修改孩子的变量<p></p>
+		* <span class="bg-danger">就是孩子可以啃老,老子不能动孩子一根毛!</span>
+	</label>
+	<p></p>
+	1. 父控制器-打开页面就显示姓名, 说明$scope变量值更新了,页面会自动响应 <p></p>
+	2. 子控制器-打开页面就显示姓名, 说明嵌套控制器也嵌套上下文,子scope可以使用所有父scope的变量(因为儿子里没有person的定义) <p></p>
+	3. 修改子控制器的年龄,父控制器年龄也更新, 说明子scope可以改变父scope里边变量的值<p></p>
+	4. 修改子控制器的出生地,父控制器没有更新的,说明子scope的变量,父scope无权读取和修改(因为child.birth只在子scope里边) <p></p>
+	5. 点击更新出生地,出生地值变化,说明$scope也可以更新html元素值,就是双向绑定<p></p>
+	6. 父控制器里输入工作,子控制器跟着显示,说明父子同名变量时,孩子如果为空,可以从父亲那里取-啃老<p></p>
+	7. 子控制器时输入工作,父控制器不更新的,说明父子同名变量时,孩子如果有值了,老子拿不到-啃老不敬老<p></p>
+</div>
+
+<script>
+	var  myApp = angular.module('myApp', []);
+	myApp.controller('ParentController', function($scope) {
+		$scope.person = {name: '李三', age: 15};
+
+	});
+
+	myApp.controller('ChildController', function($scope) {
+		$scope.child = {};
+
+		$scope.updateBirth = function() {
+			$scope.child.birth = "苏州";
+		}
+	});
+</script>
+	
+</body>
+</html>
