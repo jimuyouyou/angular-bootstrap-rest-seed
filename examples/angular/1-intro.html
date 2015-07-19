@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+	<h3>变量１hello1:</h3> <input type="text" ng-model="hello1">
+	<h3>变量2 hello2: </h3> <input type="text" ng-model="hello2">
+
+	<h3>文本绑定到变量1 hello1</h3>
+	<textarea ng-bind="hello1" name="" id="" cols="30" rows="10"></textarea>
+
+	<div>
+		<h3>变量组合 hello1 + hello2:</h3>
+		<span class="bg-danger">{{hello1}} {{hello2}}</span>
+	</div>
+</body>
+</html>
+
+
+
