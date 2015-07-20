@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>3-ng-directives.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: 大多数html标签属性和事件都有一个对应的ng指令</span>
+		</label>
+		<h3>内置指令大全</h3>
+		<table class="table">
+			<tr>
+				<td>ng-include</td>
+				<td>包含一个文件</td>
+			</tr>
+			<tr>
+				<td>ng-href ng-src</td>
+				<td>对应 href src</td>
+			</tr>
+			<tr>
+				<td>ng-disabled ng-readonly</td>
+				<td>对应 disabled readonly</td>
+			</tr>
+			<tr>
+				<td>ng-checked ng-selected ng-options ng-true-value ng-false-value</td>
+				<td>对应 checked select option</td>
+			</tr>
+			<tr>
+				<td>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak</td>
+				<td>class style, 隔行用不同样式, 元素显示与否, 闪烁效果</td>
+			</tr>
+			<tr>
+				<td>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end</td>
+				<td>逻辑控制 元素生成与否与遍历元素</td>
+			</tr>
+			<tr>
+				<td>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup</td>
+				<td>相应的鼠标键盘事件</td>
+			</tr>
+			<tr>
+				<td>ng-bind-template</td>
+				<td>绑定模板</td>
+			</tr>
+			<tr>
+				<td>ng-view ng-route</td>
+				<td>路由功能</td>
+			</tr>
+			<tr>
+				<td>ng</td>
+				<td>对应</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<div>
+			<label>ng-include实例-有的浏览器可能不支持</label>
+			<div ng-include="'partials/ng-include.html'"></div>
+			
+			<span  ng-init="ni.tempalteName='partials/ng-include-var.html'"></span>
+			<div ng-include="ni.tempalteName"></div>
+		</div>
+
+		<div>
+			<p></p>
+			<label>ng-href ng-src实例</label><p></p>
+			<span  ng-init="nh.baidu='www.baidu.com'"></span>
+			<a ng-href="http://{{nh.baidu}}">百度</a><br>
+			<img ng-src="https://www.baidu.com/img/bd_logo1.png" />
+		</div>
+
+		<div>
+			<label>ng-disabled ng-readonly实例</label>
+		</div>
+
+		<div>
+			<label>ng-checked ng-selected ng-options ng-true-value ng-false-value实例</label>
+		</div>
+
+		<div>
+			<label>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak实例</label>
+		</div>
+
+		<div>
+			<label>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end实例</label>
+		</div>
+
+		<div>
+			<label>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup实例</label>
+		</div>
+
+		<div>
+			<label>ng-bind-template实例</label>
+		</div>
+
+		<div>
+			<label>ng-view ng-route实例</label>
+		</div>
+
+	</div>
+</body>
+</html>
+
+
+
