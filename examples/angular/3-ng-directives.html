@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app='myApp'>
 <head>
 	<meta charset="UTF-8">
 	<title>3-ng-directives.html</title>
@@ -43,16 +43,12 @@
 				<td>相应的鼠标键盘事件</td>
 			</tr>
 			<tr>
-				<td>ng-bind-template</td>
-				<td>绑定模板</td>
-			</tr>
 			<tr>
+				<td>ng-bind ng-bind-html ng-bind-html-unsafe ng-bind-template</td>
+				<td>绑定显示数据: 文本,半html,全html,组合模板</td>
+			</tr>
 				<td>ng-view ng-route</td>
 				<td>路由功能</td>
-			</tr>
-			<tr>
-				<td>ng</td>
-				<td>对应</td>
 			</tr>
 		</table>
 	</div>
@@ -130,12 +126,39 @@
 			</ul>ng-repeat-start ng-repeat-end: 从start标记的元素开始，到end标记的元素结束，作为循环体进行循环输出,可以跳出父子元素关系。
 		</div>
 
-		<div>
+		<div><p></p>
 			<label>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup实例</label>
+			<div ng-controller="EventsController">
+				<span class="bg-danger">{{currentEventName}}</span><p></p>
+				<button ng-click="ngEvents('ng-click')">ng-click</button>
+				<span ng-dblclick="ngEvents('ng-dblclick')">ng-dblclick</span>
+				<input ng-model="currentEventName" type="text" ng-change="ngEvents('ng-change')" placehodler"ng-change me"><p></p>
+				<span ng-mousedown="ngEvents('ng-mousedow')" ng-mouseenter="ngEvents('ng-mousedow')" ng-mouseleave="ngEvents('ng-mouseleave')" ng-mousemove="ngEvents('ng-mousemove')" ng-mouseover="ngEvents('ng-mouseover')" ng-mouseup="ngEvents('ng-mouseup')" >ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup</span>
+			</div>
+
+			<script>
+			var  myApp = angular.module('myApp', []);
+			myApp.controller('EventsController', function($scope) {
+				$scope.ngEvents = function(param1) {
+					$scope.currentEventName = param1;
+				}
+			});
+			</script>
 		</div>
 
-		<div>
-			<label>ng-bind-template实例</label>
+		<div ng-controller="BindController"><p></p>
+			<label>ng-bind ng-bind-html ng-bind-html-unsafe ng-bind-template实例</label><p></p>
+			<span ng-bind="nb.textval"></span> ng-bind <p></p>
+			<span ng-bind-template="{{ nb.textval }} and ng-bind-template {{ nb.htmlval }}"></span> ng-bind-template <p></p>
+			ng-bind-html ng-bind-html-unsafe需要引入sanitize文件,也就是说Angular不推荐html
+
+			<script>
+			myApp.controller('BindController', function($scope, $sce) {
+				$scope.nb = {};
+				$scope.nb.textval = 'I am a text';
+				$scope.nb.htmlval = $sce.trustAsHtml('I am a html<strong>strong</strong> content');
+			});
+			</script>
 		</div>
 
 		<div>
