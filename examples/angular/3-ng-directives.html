@@ -58,7 +58,8 @@
 		<span  ng-init="global.falseval=false"></span>
 		<span  ng-init="global.array=['dog', 'goat', 'cat']"></span>
 		<span  ng-init="global.objArray=[{name: 'dog', age: 10}, {name: 'goat', age: 20}, {name: 'cat', age: 30}]"></span>
-
+		
+		<hr>
 		<div>
 			<label>ng-include实例-有的浏览器可能不支持</label>
 			<div ng-include="'partials/ng-include.html'"></div>
@@ -67,6 +68,7 @@
 			<div ng-include="ni.tempalteName"></div>
 		</div>
 
+		<hr>
 		<div>
 			<p></p>
 			<label>ng-href ng-src实例</label><p></p>
@@ -75,12 +77,14 @@
 			<img ng-src="https://www.baidu.com/img/bd_logo1.png" style="width:60px;height:20px" />ng-src
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-disabled ng-readonly实例</label><p></p>
 			<button ng-disabled="global.trueval">ng-disabled</button>					
 			<input type="text" ng-readonly="global.trueval" placeholder="ng-readonly">	
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-checked ng-selected ng-options ng-true-value ng-false-value实例</label><p></p>
 			<input type="checkbox" ng-checked="global.trueval" ng-true-value="admin" ng-false-value="basic"> ng-checked ng-true-value="admin" ng-false-value="basic"
@@ -99,6 +103,7 @@
 
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak实例</label><p></p>
 			<input type="text" ng-class="{'btn-success' : global.trueval, 'btn': global.falseval}" ng-style="{width: '300px', height: '30px'}"> ng-class ng-style <p></p>
@@ -110,6 +115,7 @@
 			<p ng-cloak>ng-cloak </p>
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end实例</label><p></p>
 			<div ng-switch on="global.trueval">
@@ -126,6 +132,7 @@
 			</ul>ng-repeat-start ng-repeat-end: 从start标记的元素开始，到end标记的元素结束，作为循环体进行循环输出,可以跳出父子元素关系。
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup实例</label>
 			<div ng-controller="EventsController">
@@ -145,7 +152,8 @@
 			});
 			</script>
 		</div>
-
+		
+		<hr>
 		<div ng-controller="BindController"><p></p>
 			<label>ng-bind ng-bind-html ng-bind-html-unsafe ng-bind-template实例</label><p></p>
 			<span ng-bind="nb.textval"></span> ng-bind <p></p>
@@ -161,10 +169,12 @@
 			</script>
 		</div>
 
+		<hr>
 		<div><p></p>
 			<label>ng-view ng-route实例</label><p></p>
-			url: http://jimuyouyou.github.io/SearchableCookbook4Coder/plugins/angular-js/ng-view-ngRoute.html
+			url: <a href="http://jimuyouyou.github.io/SearchableCookbook4Coder/plugins/angular-js/ng-view-ngRoute.html">http://jimuyouyou.github.io/SearchableCookbook4Coder/plugins/angular-js/ng-view-ngRoute.html</a>
 		</div>
+		<hr><hr>
 
 	</div>
 </body>
