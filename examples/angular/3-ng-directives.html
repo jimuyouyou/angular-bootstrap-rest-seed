@@ -32,7 +32,7 @@
 			</tr>
 			<tr>
 				<td>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak</td>
-				<td>class style, 隔行用不同样式, 元素显示与否, 闪烁效果</td>
+				<td>class style, 隔行用不同样式, 元素显示与否, 加载不完全时闪烁效果</td>
 			</tr>
 			<tr>
 				<td>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end</td>
@@ -58,6 +58,11 @@
 	</div>
 	
 	<div>
+		<span  ng-init="global.trueval='hello'"></span>
+		<span  ng-init="global.falseval=false"></span>
+		<span  ng-init="global.array=['dog', 'goat', 'cat']"></span>
+		<span  ng-init="global.objArray=[{name: 'dog', age: 10}, {name: 'goat', age: 20}, {name: 'cat', age: 30}]"></span>
+
 		<div>
 			<label>ng-include实例-有的浏览器可能不支持</label>
 			<div ng-include="'partials/ng-include.html'"></div>
@@ -70,24 +75,59 @@
 			<p></p>
 			<label>ng-href ng-src实例</label><p></p>
 			<span  ng-init="nh.baidu='www.baidu.com'"></span>
-			<a ng-href="http://{{nh.baidu}}">百度</a><br>
-			<img ng-src="https://www.baidu.com/img/bd_logo1.png" />
+			<a ng-href="http://{{nh.baidu}}">ng-href百度</a><br>
+			<img ng-src="https://www.baidu.com/img/bd_logo1.png" style="width:60px;height:20px" />ng-src
 		</div>
 
-		<div>
-			<label>ng-disabled ng-readonly实例</label>
+		<div><p></p>
+			<label>ng-disabled ng-readonly实例</label><p></p>
+			<button ng-disabled="global.trueval">ng-disabled</button>					
+			<input type="text" ng-readonly="global.trueval" placeholder="ng-readonly">	
 		</div>
 
-		<div>
-			<label>ng-checked ng-selected ng-options ng-true-value ng-false-value实例</label>
+		<div><p></p>
+			<label>ng-checked ng-selected ng-options ng-true-value ng-false-value实例</label><p></p>
+			<input type="checkbox" ng-checked="global.trueval" ng-true-value="admin" ng-false-value="basic"> ng-checked ng-true-value="admin" ng-false-value="basic"
+
+			<p></p>
+			<select ng-model='test.name' ng-options="elem.value as elem.name for elem in global.objArray">
+			    <option>--</option>
+			</select>ng-options
+
+			<select>
+				<option>--</option>
+				<option ng-repeat="elem in global.objArray" value="{{elem.name}}" ng-selected="elem.name=='dog'">
+						{{elem.age}}
+				</option>
+			</select>ng-selected
+
 		</div>
 
-		<div>
-			<label>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak实例</label>
+		<div><p></p>
+			<label>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak实例</label><p></p>
+			<input type="text" ng-class="{'btn-success' : global.trueval, 'btn': global.falseval}" ng-style="{width: '300px', height: '30px'}"> ng-class ng-style <p></p>
+			<table>
+				<tr ng-repeat="elem in global.objArray" ng-class-even="'bg-success'" ng-class-odd="'bg-danger'"><td>{{elem.name}} ng-class-even ng-class-odd</td></tr>
+			</table>
+			<input type="button" ng-show="global.trueval" class="btn btn-success" value="ng-show">
+			<input type="button" ng-hide="!global.trueval" class="btn btn-primary" value="ng-hide">
+			<p ng-cloak>ng-cloak </p>
 		</div>
 
-		<div>
-			<label>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end实例</label>
+		<div><p></p>
+			<label>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end实例</label><p></p>
+			<div ng-switch on="global.trueval">
+				<div ng-switch-when="abc">ng-switch-when abc</div>
+				<div ng-switch-default>ng-switch-default</div>
+			</div>	
+			<div ng-if="global.trueval">ng-if</div>
+
+			<ul>
+				<li ng-repeat-start="elem in global.objArray">
+					<strong>{{elem.name}}</strong>
+				</li>
+				<li ng-repeat-end>{{elem.age}}</li>
+			</ul>ng-repeat-start ng-repeat-end: 从start标记的元素开始，到end标记的元素结束，作为循环体进行循环输出,可以跳出父子元素关系。
 		</div>
 
 		<div>
