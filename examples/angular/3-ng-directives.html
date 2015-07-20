@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>3-ng-directives.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: 大多数html标签属性和事件都有一个对应的ng指令</span>
+		</label>
+		<h3>内置指令大全</h3>
+		<table class="table">
+			<tr>
+				<td>ng-include</td>
+				<td>包含一个文件</td>
+			</tr>
+			<tr>
+				<td>ng-href ng-src</td>
+				<td>对应 href src</td>
+			</tr>
+			<tr>
+				<td>ng-disabled ng-readonly</td>
+				<td>对应 disabled readonly</td>
+			</tr>
+			<tr>
+				<td>ng-checked ng-selected ng-options ng-true-value ng-false-value</td>
+				<td>对应 checked select option</td>
+			</tr>
+			<tr>
+				<td>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak</td>
+				<td>class style, 隔行用不同样式, 元素显示与否, 加载不完全时闪烁效果</td>
+			</tr>
+			<tr>
+				<td>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end</td>
+				<td>逻辑控制 元素生成与否与遍历元素</td>
+			</tr>
+			<tr>
+				<td>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup</td>
+				<td>相应的鼠标键盘事件</td>
+			</tr>
+			<tr>
+			<tr>
+				<td>ng-bind ng-bind-html ng-bind-html-unsafe ng-bind-template</td>
+				<td>绑定显示数据: 文本,半html,全html,组合模板</td>
+			</tr>
+				<td>ng-view ng-route</td>
+				<td>路由功能</td>
+			</tr>
+		</table>
+	</div>
+	
+	<div>
+		<span  ng-init="global.trueval='hello'"></span>
+		<span  ng-init="global.falseval=false"></span>
+		<span  ng-init="global.array=['dog', 'goat', 'cat']"></span>
+		<span  ng-init="global.objArray=[{name: 'dog', age: 10}, {name: 'goat', age: 20}, {name: 'cat', age: 30}]"></span>
+		
+		<hr>
+		<div>
+			<label>ng-include实例-有的浏览器可能不支持</label>
+			<div ng-include="'partials/ng-include.html'"></div>
+			
+			<span  ng-init="ni.tempalteName='partials/ng-include-var.html'"></span>
+			<div ng-include="ni.tempalteName"></div>
+		</div>
+
+		<hr>
+		<div>
+			<p></p>
+			<label>ng-href ng-src实例</label><p></p>
+			<span  ng-init="nh.baidu='www.baidu.com'"></span>
+			<a ng-href="http://{{nh.baidu}}">ng-href百度</a><br>
+			<img ng-src="https://www.baidu.com/img/bd_logo1.png" style="width:60px;height:20px" />ng-src
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-disabled ng-readonly实例</label><p></p>
+			<button ng-disabled="global.trueval">ng-disabled</button>					
+			<input type="text" ng-readonly="global.trueval" placeholder="ng-readonly">	
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-checked ng-selected ng-options ng-true-value ng-false-value实例</label><p></p>
+			<input type="checkbox" ng-checked="global.trueval" ng-true-value="admin" ng-false-value="basic"> ng-checked ng-true-value="admin" ng-false-value="basic"
+
+			<p></p>
+			<select ng-model='test.name' ng-options="elem.value as elem.name for elem in global.objArray">
+			    <option>--</option>
+			</select>ng-options
+
+			<select>
+				<option>--</option>
+				<option ng-repeat="elem in global.objArray" value="{{elem.name}}" ng-selected="elem.name=='dog'">
+						{{elem.age}}
+				</option>
+			</select>ng-selected
+
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-class ng-style ng-class-even ng-class-odd ng-show ng-hide ng-cloak实例</label><p></p>
+			<input type="text" ng-class="{'btn-success' : global.trueval, 'btn': global.falseval}" ng-style="{width: '300px', height: '30px'}"> ng-class ng-style <p></p>
+			<table>
+				<tr ng-repeat="elem in global.objArray" ng-class-even="'bg-success'" ng-class-odd="'bg-danger'"><td>{{elem.name}} ng-class-even ng-class-odd</td></tr>
+			</table>
+			<input type="button" ng-show="global.trueval" class="btn btn-success" value="ng-show">
+			<input type="button" ng-hide="!global.trueval" class="btn btn-primary" value="ng-hide">
+			<p ng-cloak>ng-cloak </p>
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-switch ng-if ng-repeat ng-repeat-start ng-repeat-end实例</label><p></p>
+			<div ng-switch on="global.trueval">
+				<div ng-switch-when="abc">ng-switch-when abc</div>
+				<div ng-switch-default>ng-switch-default</div>
+			</div>	
+			<div ng-if="global.trueval">ng-if</div>
+
+			<ul>
+				<li ng-repeat-start="elem in global.objArray">
+					<strong>{{elem.name}}</strong>
+				</li>
+				<li ng-repeat-end>{{elem.age}}</li>
+			</ul>ng-repeat-start ng-repeat-end: 从start标记的元素开始，到end标记的元素结束，作为循环体进行循环输出,可以跳出父子元素关系。
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-submit ng-click  ng-dblclick ng-change ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup实例</label>
+			<div ng-controller="EventsController">
+				<span class="bg-danger">{{currentEventName}}</span><p></p>
+				<button ng-click="ngEvents('ng-click')">ng-click</button>
+				<span ng-dblclick="ngEvents('ng-dblclick')">ng-dblclick</span>
+				<input ng-model="currentEventName" type="text" ng-change="ngEvents('ng-change')" placehodler"ng-change me"><p></p>
+				<span ng-mousedown="ngEvents('ng-mousedow')" ng-mouseenter="ngEvents('ng-mousedow')" ng-mouseleave="ngEvents('ng-mouseleave')" ng-mousemove="ngEvents('ng-mousemove')" ng-mouseover="ngEvents('ng-mouseover')" ng-mouseup="ngEvents('ng-mouseup')" >ng-mousedown ng-mouseenter ng-mouseleave ng-mousemove ng-mouseover ng-mouseup</span>
+			</div>
+
+			<script>
+			var  myApp = angular.module('myApp', []);
+			myApp.controller('EventsController', function($scope) {
+				$scope.ngEvents = function(param1) {
+					$scope.currentEventName = param1;
+				}
+			});
+			</script>
+		</div>
+		
+		<hr>
+		<div ng-controller="BindController"><p></p>
+			<label>ng-bind ng-bind-html ng-bind-html-unsafe ng-bind-template实例</label><p></p>
+			<span ng-bind="nb.textval"></span> ng-bind <p></p>
+			<span ng-bind-template="{{ nb.textval }} and ng-bind-template {{ nb.htmlval }}"></span> ng-bind-template <p></p>
+			ng-bind-html ng-bind-html-unsafe需要引入sanitize文件,也就是说Angular不推荐html
+
+			<script>
+			myApp.controller('BindController', function($scope, $sce) {
+				$scope.nb = {};
+				$scope.nb.textval = 'I am a text';
+				$scope.nb.htmlval = $sce.trustAsHtml('I am a html<strong>strong</strong> content');
+			});
+			</script>
+		</div>
+
+		<hr>
+		<div><p></p>
+			<label>ng-view ng-route实例</label><p></p>
+			url: <a href="http://jimuyouyou.github.io/SearchableCookbook4Coder/plugins/angular-js/ng-view-ngRoute.html">http://jimuyouyou.github.io/SearchableCookbook4Coder/plugins/angular-js/ng-view-ngRoute.html</a>
+		</div>
+		<hr><hr>
+
+	</div>
+</body>
+</html>
+
+
+
