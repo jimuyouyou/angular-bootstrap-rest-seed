@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>5-form-validation.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: 可以使用所有html5表单验证功能,同时Angular还增强了部分验证,支持动态验证</span>
+		</label>
+	</div>
+
+	<hr>
+	<div ng-controller="ExampleController">
+		<form action="" name="exampleForm">
+			<label>姓名(required ng-minlength=1 ng-maxlength=3): </label> <input type="text" name="name" ng-model="user.name" required ng-minlength=1 ng-maxlength=3> <br>
+			<label>英文名(ng-pattern="/[a-zA-Z]/"): </label> <input type="text" name="englishName" ng-model="user.englishName" ng-pattern="/[a-zA-Z]/"> <br>
+			<label>年龄(number): </label> <input type="number" name="age" ng-model="user.age" required > <br>
+			<label>邮件(email): </label> <input type="email" name="email" ng-model="user.email" /> <br>
+			<label>博客地地址(url): </label> <input type="url" name="homepage" ng-model="user.homepage" /> <br>
+
+			<input type="submit" value="提交" />
+		</form>
+
+		<script>
+		var  myApp = angular.module('myApp', []);
+		myApp.controller('ExampleController', function($scope) {
+			$scope.global = {};
+			$scope.global.fDate = new Date();
+
+			$scope.isCapitalized = function(str) {
+				return str[0] == str[0].toUpperCase();
+			};
+
+		});
+		</script>		
+	</div>
+
+	<hr>
+	<div class="bg-info">
+		<h3>获取表单验证状态</h3>
+		未修改的表单: formName.inputFieldName.$pristine <br>
+		修改过的表单: formName.inputFieldName.$dirty <br>
+		合法的表单: formName.inputFieldName.$valid <br>
+		不合法的表单: formName.inputFieldName.$invalid <br>
+		错误: formName.inputfieldName.$error <br>
+
+		<p></p>
+		<h3>对应的css样式</h3>
+		.ng-pristine {} <br>
+		.ng-dirty {} <br>
+		.ng-valid {} <br>
+		.ng-invalid {} <br>
+	</div>
+</body>
+</html>
+
+
+
