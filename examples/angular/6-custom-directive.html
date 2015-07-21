@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>6-custom-directive.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: 可以使用所有html5表单验证功能,同时Angular还增强了部分验证,支持动态验证</span>
+		</label>
+	</div>
+
+	<hr>
+	<div>
+		<h3>Custom directive, with dom operation, events, css and scope model operation</h3> 
+		
+
+		<div ng-controller="DateController">
+		  Date format: <input ng-model="format"> <hr/>
+		  Current time is: <span my-current-time="format"></span>
+		</div>
+
+
+
+		<script>
+		var myApp = angular.module('myApp', []);
+
+		myApp.controller('DateController', function($scope) {
+			$scope.format = "M/d/yy h:mm:ss a";
+		});
+		
+		myApp.directive('myCurrentTime', ['$interval', 'dateFilter', function($interval, dateFilter) {
+			function link(scope, element, attrs) {
+				var format, timeoutId;
+
+				function getRandomColor() {
+				    var letters = '0123456789ABCDEF'.split('');
+				    var color = '#';
+				    for (var i = 0; i < 6; i++ ) {
+				        color += letters[Math.floor(Math.random() * 16)];
+				    }
+				    return color;
+				}
+
+				function updateTime() {
+					element.text(dateFilter(new Date(), format));
+					element.css({'background-color': getRandomColor()});
+				}
+
+				scope.$watch(attrs.myCurrentTime, function(value) {
+					format = value;
+					updateTime();
+				});
+
+				element.on('$destroy', function() {
+					$interval.cancel(timeoutId);
+				});
+
+				element.on('click', function(){
+					alert('Date format is changing to yyyy/MM/dd hh');
+					scope.format = "yyyy/MM/dd hh " + getRandomColor();
+				});
+
+				// start the UI update process; save the timeoutId for canceling
+				timeoutId = $interval(function() {
+					updateTime(); // update DOM
+				}, 1000);
+			}
+
+			return {
+				link: link
+			};
+		}]);
+		</script>
+	</div>
+
+	<hr>
+	<div class="bg-info">
+		<h3>自定义指令的选项参数</h3>
+		<xmp>
+angular.module('myApp', [])
+	.directive('myDirective', function() {
+		return {
+			restrict: String, //'EACM', 元素,属性(默认),类名,注释
+			priority: Number, // 1000 > 0, 0代表默认最低优先级,数越大优先级越高
+			terminal: Boolean, // true的意思是停止与否,如果此指令的表达式为真,那么继续执行其它,为假更低优先级的指令就不运行了
+			// 使用了 terminal 参数的例子是 ngView 和 ngIf 。 ngIf 的优先级略高于 ngView ，如果 ngIf 的表达式值为 true ， 
+			// View 就可以被正常执行，但如果 ngIf 表达式的值为 false ，由于 ngView 的优先级较低就不会被执行。
+			template: String or Template Function: function(tElement, tAttrs){ 
+			}, //  templateUrl可以替代它,更方便
+			templateUrl: String or Template Function: function(tElement, tAttrs){ 
+			}, // 1. 在本地开发时，需要在后台运行一个本地服务器，用以从文件系统加载HTML模板，否则会导致Cross Origin Request Script（CORS）错误。
+  			// 2. 模板加载是异步的，意味着编译和链接要暂停，等待模板加载完成
+
+			replace: Boolean or String, // 默认false, 以子元素插入; true意思是替代原来元素
+			scope: Boolean or Object, // 默认false, scope 设置为 true 时，会从父作用域继承并创建一个新的作用域对象
+			// scope: {
+			//	ngModel: '=', // 将ngModel同指定对象绑定
+			//	onSend: '&', // 将引用传递给这个方法
+			//	fromName: '@' // 储存与fromName相关联的字符串
+			//	}
+			transclude: Boolean, // 只有当你希望创建一个可以包含任意内容的指令时， 才使用 transclude: true
+			controller: String or
+			function(scope, element, attrs, transclude, otherInjectables) { 
+			},
+			controllerAs: String,
+			require: String,
+			link: function(scope, iElement, iAttrs) { 
+			},
+			compile: // 返回一个对象或连接函数，如下所示：
+				function(tElement, tAttrs, transclude) {
+				return {
+					pre: function(scope, iElement, iAttrs, controller) { 
+					},
+					post: function(scope, iElement, iAttrs, controller) { 
+					}
+				}
+				// 或者
+				return function postLink( ) { 
+				}
+			}
+		};
+	});
+		</xmp>
+	</div>
+</body>
+</html>
+
+
+
