@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>4-filters.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: filter是万能的数据处理器,可以过滤数据,排序数据,删除数据,扩展数据</span>
+		</label>
+		<h3>内置filter大全</h3>
+		<p>url: <a href="https://docs.angularjs.org/api/ng/filter">https://docs.angularjs.org/api/ng/filter</a></p>
+		<table class="table">
+			<tr>
+				<td>uppercase lowercase</td>
+				<td>转换为大小写</td>
+			</tr>
+			<tr>
+				<td>date</td>
+				<td>转换为各种日期格式</td>
+			</tr>
+			<tr>
+				<td>number</td>
+				<td>将数字格式化成文本。 它的第二个参数是可选的， 用来控制小数点后截取的位数</td>
+			</tr>
+			<tr>
+				<td>currency</td>
+				<td>转换为货币形式</td>
+			</tr>
+			<tr>
+				<td>json</td>
+				<td>转换json或javascript对象成字符串</td>
+			</tr>
+			<tr>
+				<td>filter</td>
+				<td>过滤数据,可以是字符串,对象,函数</td>
+			</tr>
+			<tr>
+				<td>limitTo</td>
+				<td>生成新的部分字符串或数组,可以正序倒序截取</td>
+			</tr>
+			<tr>
+				<td>orderBy</td>
+				<td>排序,按函数,字符串或数组</td>
+			</tr>
+			<tr>
+				<td>编程式使用filter</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>自定义filter</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	
+	<div ng-controller="ExampleController">
+		<span  ng-init="global.fNumber='1234567890'"></span>
+		<span  ng-init="global.fString='Hello filter from Michael Qin'"></span>
+		<span  ng-init="global.fArray=['Dog', 'gOat', 'cat']"></span>
+		<span  ng-init="global.fObjArray=[{name: 'dog', age: 10}, {name: 'Goat', age: 20}, {name: 'cat', age: 30}]"></span>
+		
+		<script>
+		var  myApp = angular.module('myApp', []);
+		myApp.controller('ExampleController', function($scope) {
+			$scope.global = {};
+			$scope.global.fDate = new Date();
+
+			$scope.isCapitalized = function(str) {
+				return str[0] == str[0].toUpperCase();
+			};
+
+		});
+		</script>		
+		
+		<hr>
+		<div>
+			<label>uppercase lowercase实例</label><p></p>
+			<strong>uppercase:</strong> <span>{{global.fString | uppercase}}</span> {{global.fString}}<br>
+			<strong>lowercase:</strong> <span>{{global.fString | lowercase}}</span> <br>
+		</div>
+
+		
+		<hr>
+		<div>
+			<label>date实例</label><p></p>
+			{{global.fDate | date: 'medium'}} <br>
+			{{global.fDate | date: 'short'}} <br>
+			{{global.fDate | date: 'fullDate'}} <br>
+			{{global.fDate | date: 'longDate'}} <br>
+			{{global.fDate | date: 'mediumDate'}} <br>
+			{{global.fDate | date: 'shortDate'}} <br>
+			{{global.fDate | date: 'mediumTime'}} <br>
+			{{global.fDate | date: 'shortTime'}} <br>
+			{{global.fDate | date: 'yyyy'}} <br>
+			{{global.fDate | date: 'yy'}} <br>
+			{{global.fDate | date: 'y'}} <br>
+			{{global.fDate | date: 'MMMM'}} <br>
+			{{global.fDate | date: 'MMM'}} <br>
+			{{global.fDate | date: 'MM'}} <br>
+			{{global.fDate | date: 'M'}} <br>
+			{{global.fDate | date: 'dd'}} <br>
+			{{global.fDate | date: 'd'}} <br>
+			{{global.fDate | date: 'EEEE'}} <br>
+			{{global.fDate | date: 'hh:mm:ss.sss'}} <br>
+			{{global.fDate | date: 'yyyy-MM-dd hh:mm:ss'}} <br>
+			{{global.fDate | date: 'yyyy/MM/dd hh:mm:ss'}} <br>
+			{{global.fDate | date: 'MM/dd/yyyy hh:mm:ss'}} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>number实例</label><p></p>
+			{{global.fNumber}} <br>
+			{{global.fNumber | number}} <br>
+			{{global.fNumber | number: 2}} <br>
+			{{global.fNumber | number: 5}} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>currency实例</label><p></p>
+			{{global.fNumber | currency}} <br>
+			{{global.fNumber | currency: "€"}} <br>
+			{{global.fNumber | currency: "£"}} <br>
+			{{global.fNumber | currency: "CNY"}} <br>
+			{{global.fNumber | currency: "¥"}} <br>
+			{{global.fNumber | currency: "元"}} <br>
+			{{global.fNumber | currency: "圓"}} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>json实例</label><p></p>
+			{{global.fObjArray | json}} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>filter实例</label><p></p>
+			{{global.fArray | filter: 'o' }} <br>
+			{{global.fArray | filter: isCapitalized }} <br>
+			{{global.fObjArray | filter:{name: 'dog'} }} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>limitTo实例</label><p></p>
+			{{global.fString | limitTo: 3 }} <br>
+			{{global.fArray | limitTo: 2 }} <br>
+			{{global.fObjArray | limitTo: -2 }} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>orderBy实例</label><p></p>
+			{{global.fObjArray | orderBy: 'age' }} <br>
+			{{global.fObjArray | orderBy: 'age': true }} <br>
+			{{global.fObjArray | orderBy: '-age'}} <br>
+			{{global.fObjArray | orderBy: 'age': false }} <br>
+			{{global.fObjArray | orderBy: '+age'}} <br>
+		</div>
+
+		<hr>
+		<div>
+			<label>编程式使用filter实例</label><p></p>
+			<xmp>
+$filter('filter')(array, expression, comparator)
+$filter('currency')(amount, symbol, fractionSize)
+$filter('number')(number, fractionSize)
+$filter('date')(date, format, timezone)
+$filter('json')(object, spacing)
+$filter('lowercase')()
+$filter('uppercase')()
+$filter('limitTo')(input, limit, begin)
+$filter('orderBy')(array, expression, reverse)
+			</xmp>
+		</div>
+
+		<hr>
+		<div>
+			<label>自定义filter实例</label><p></p>
+			<script>
+				myApp.filter('age20', function() {
+					return function(input) {
+						for(var i = 0; i < input.length; i++) {
+							if (input[i].age == 20) {
+								return input[i];
+							}
+						}
+					};
+				});
+			</script>
+			{{global.fObjArray | age20 }} <br>
+		</div>
+
+	<hr>
+	<hr>
+	</div>
+</body>
+</html>
+
+
+
