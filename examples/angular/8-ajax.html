@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+<head>
+	<meta charset="UTF-8">
+	<title>8-ajax.html</title>
+	<link rel='stylesheet' href='../../libs/bootstrap3.1.1/css/bootstrap.min.css' />
+	<script src='../../libs/angular1.3.13/angular.js'></script>
+</head>
+<body class="container">
+
+	<div class="bg-info">
+		<label>
+			<span class="bg-danger">一句话: 它们Angular框架声明周期的各个阶段,常规约定各专注于特定功能,经过处理也可以互相替换</span>
+		</label>
+		<h3>功能细分简解</h3>
+		<table class="table">
+			<tr>
+				<td>$http</td>
+				<td>类似JQuery ajax,支持promise</td>
+			</tr>
+			<tr>
+				<td>$http.jsonp</td>
+				<td>跨域访问，只支持json数据格式，不支持文本，html等其他格式</td>
+			</tr>
+			<tr>
+				<td>$httpProvider</td>
+				<td>主要在config中使用，做http通用设置</td>
+			</tr>
+		</table>
+	</div>
+
+	<label>JSONP 实例, Http promise实例</label>
+	<div ng-controller="JsonPController">
+		<div id="baidu">
+			http promise: {{hpromise}} <p></p>
+			jsonp: {{jsp}} 
+		</div>
+	<script>
+	var myApp = angular.module('myApp', []);
+
+	myApp.controller('JsonPController', function($scope, $http) {
+		$http.jsonp("https://api.github.com?callback=JSON_CALLBACK").success(function(data) {
+			$scope.jsp = data;
+		});
+
+		var promise = $http({
+			method: 'GET',
+			url: 'https://api.github.com'
+		});
+		promise.success(function(data, status, headers, config) {
+			$scope.hpromise = data.current_user_url;
+
+		});
+		promise.error(function(data, status, headers, config) {
+			scope.hpromise = 'hpromise';
+		});
+
+	});
+	</script>
+	</div>
+
+	<p></p>
+	<label>$httpProvider实例</label>
+	<pre>
+angular.module('myApp', [])
+.config(function($httpProvider) {
+	$httpProvider.defaults.headers
+		.common['X-Requested-By'] = 'MyAngularApp';
+});
+	</pre>
+
+
+</body>
+</html>
+
+
+
