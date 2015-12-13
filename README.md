@@ -1,3 +1,5 @@
+[http://jimuyouyou.github.io/angular-bootstrap-rest-seed] (http://jimuyouyou.github.io/angular-bootstrap-rest-seed)
+
 # 简话Angular 
 
 # angular-bootstrap-rest-seed
